@@ -1,31 +1,35 @@
+import React, { Component } from 'react';
 import NewTask from './Components/NewTask'
 import List from './Components/List'
-import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
   constructor() {
     super();
-
     this.state = {
-      taskList: []
+      taskArr: [],
     }
+  }
 
-    this.addTask = this.addTask.bind(this)
+  handleAdd = (task) => {
+    this.setState({
+      taskArr: [...this.state.taskArr, task],
+
+    })
   }
-  addTask(task) {
-    this.setState({ taskList: [...this.state.taskList, task] })
+
+  handleDelete = (index) => {
+    this.setState({ taskArr: this.state.taskArr.filter((e, i) => i !== index) })
   }
+
   render() {
     return (
-      <div className="App" >
-        <h1>GET STUFF DONE:</h1>
-        <NewTask add={this.addTask} />
-        <List tasks={this.state.taskList} />
-      </div>
-    );
+      <section>
+        <NewTask taskArr={this.state.taskArr} handleAdd={this.handleAdd} />
+        <List taskArr={this.state.taskArr} handleDelete={this.handleDelete} />
+      </section>
+    )
   }
-
 }
 
 export default App;

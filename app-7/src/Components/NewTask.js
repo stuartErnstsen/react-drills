@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
 
-export default class NewTask extends Component {
+class NewTask extends Component {
     constructor() {
         super();
-
         this.state = {
-            userInput: ''
+            taskInput: ''
         }
-        this.handleChange = this.handleChange.bind(this)
-        this.handleAdd = this.handleAdd.bind(this)
     }
 
-    handleChange(e) {
-        this.setState({ userInput: e.target.value })
+    handleChange = (e) => {
+        this.setState({ taskInput: e.target.value });
     }
 
-    handleAdd() {
-        this.props.add(this.state.userInput);
-        this.setState({ userInput: '' })
+    addNewReset = () => {
+        this.props.handleAdd(this.state.taskInput)
+        this.setState({ taskInput: '' });
     }
+
     render() {
         return (
-            <div className="App">
-                <input onChange={this.handleChange} placeholder="Type a new task!" />
-                <button onClick={this.handleAdd}>Add new task</button>
+            <div>
+                <input value={this.state.taskInput} onChange={this.handleChange} />
+                <button onClick={this.addNewReset}>ADD NEW TASK</button>
             </div>
+
         )
     }
 }
+
+export default NewTask;

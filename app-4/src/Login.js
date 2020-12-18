@@ -1,39 +1,38 @@
 import React, { Component } from 'react';
 
-export default class Login extends Component {
-    constructor(props) {
-        super(props);
-
+class Login extends Component {
+    constructor() {
+        super();
         this.state = {
-            userName: '',
-            password: ''
+            usernameInput: '',
+            passwordInput: ''
         }
-
-        this.handleUsername = this.handleUsername.bind(this)
-        this.handlePassword = this.handlePassword.bind(this)
-        this.submitInput = this.submitInput.bind(this)
     }
 
-    handleUsername(e) {
-        this.setState({ userName: e.target.value })
+    handleChange = (e) => {
+        this.setState({ [e.target.id]: e.target.value });
     }
 
-    handlePassword(e) {
-        this.setState({ password: e.target.value })
+    handleLogin = () => {
+        alert(`You have been logged in as ${this.state.usernameInput} and your password is ${this.state.passwordInput}`)
+        this.setState({
+            usernameInput: '',
+            passwordInput: ''
+        })
     }
-
-    submitInput() {
-        alert(`You logged in as Username: ${this.state.userName} and your Password is: ${this.state.password}`)
-    }
-
     render() {
-
         return (
             <div>
-                <input onChange={this.handleUsername} placeholder="Please enter username"></input>
-                <input onChange={this.handlePassword} placeholder="Please enter password"></input>
-                <button onClick={this.submitInput}>Login</button>
+                <label>UserName: </label>
+                <input id="usernameInput" value={this.state.usernameInput} onChange={this.handleChange} />
+                <br />
+                <label>Password: </label>
+                <input id="passwordInput" value={this.state.passwordInput} onChange={this.handleChange} />
+                <br />
+                <button onClick={this.handleLogin}>LOGIN</button>
             </div>
         )
     }
 }
+
+export default Login;

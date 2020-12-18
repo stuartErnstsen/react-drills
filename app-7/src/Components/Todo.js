@@ -1,9 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-export default class Todo extends Component {
-    render() {
-        return (
-            <p>{this.props.task}</p>
-        )
-    }
-}
+const Todo = props => <li onClick={() => props.handleDelete(props.index)}>{props.task}</li>
+
+export default Todo;

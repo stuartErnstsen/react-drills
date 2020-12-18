@@ -1,15 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Todo from './Todo'
 
-export default class List extends Component {
-    render() {
-        let taskItems = this.props.tasks.map((e, i) => {
-            return (
-                <Todo key={i} task={e} />
-            )
-        })
-        return (
-            <div>{taskItems}</div>
-        )
-    }
-}
+const List = props => <ol> {props.taskArr.map((task, i) => <Todo key={i} index={i} task={task} handleDelete={props.handleDelete} />)} </ol>
+
+export default List;

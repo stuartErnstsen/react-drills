@@ -1,45 +1,41 @@
-import Todo from './Todo'
+import Todo from './Components/Todo'
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
+  constructor() {
+    super();
     this.state = {
-      taskList: [],
-      userInput: ''
+      todoArr: [],
+      todoInput: ''
     }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.addTask = this.addTask.bind(this)
   }
 
-  handleChange(e) {
-    this.setState({ userInput: e.target.value })
+  handleChange = (e) => {
+    this.setState({ todoInput: e.target.value })
   }
-
-  addTask() {
+  addTask = () => {
     this.setState({
-      taskList: [...this.state.taskList, this.state.userInput],
-      userInput: ''
+      todoArr: [...this.state.todoArr, this.state.todoInput],
+      todoInput: ''
     })
+  }
+  removeTask = (index) => {
+    this.setState({ todoArr: this.state.todoArr.filter((todo, i) => index !== i) })
   }
 
   render() {
-    let displayList = this.state.taskList.map((e, i) => {
-      return (
-        <Todo key={i} task={e} />
-      )
-    })
     return (
-      <div className="App">
-        <input value={this.state.userInput} onChange={this.handleChange} placeholder="Please enter a new task:"></input>
-        <button onClick={this.addTask}></button>
-        {displayList}
+      <div>
+        <input value={this.state.todoInput} onChange={this.handleChange} placeholder="Please enter a new task" />
+        <button onClick={this.addTask}>ADD TASK</button>
+        <h2>List of things To Do:</h2>
+        <ol>
+          {this.state.todoArr.map((task, i) => <Todo key={i} task={task} index={i} removeTask={this.removeTask} />)}
+        </ol>
       </div>
-    );
+
+    )
   }
 
 }
